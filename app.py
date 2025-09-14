@@ -112,14 +112,14 @@ with col_forms:
     st.header("1️ Personal Information")
     col1_1, col1_2 = st.columns(2)
     with col1_1:
-        user_name = st.text_input("Full Name", "Jane Doe")
-        user_title = st.text_input("Title/Tagline", "A passionate and creative developer.")
-        user_email = st.text_input("Email", "jane.doe@example.com")
+        user_name = st.text_input("Full Name", "Enter user name")
+        user_title = st.text_input("Title/Tagline", "enter tagline.")
+        user_email = st.text_input("Email", "enter email")
         profile_img_file = st.file_uploader("Upload Profile Image", type=["png", "jpg", "jpeg"])
     with col1_2:
-        user_description = st.text_area("About Me", "I am a skilled developer with experience in creating dynamic and user-friendly web applications. I am passionate about clean code, robust design, and continuous learning.", height=150)
-        user_linkedin = st.text_input("LinkedIn URL", "https://linkedin.com/in/janedoe")
-        user_github = st.text_input("GitHub URL", "https://github.com/janedoe")
+        user_description = st.text_area("About Me", "enter about.", height=150)
+        user_linkedin = st.text_input("LinkedIn URL", "--e")
+        user_github = st.text_input("GitHub URL", "--")
 
     st.header("2️ Skills")
     if 'skills' not in st.session_state:
