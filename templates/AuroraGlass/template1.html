@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ user.name }} - Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://picsum.photos/1600/900?blur=3') no-repeat center center/cover;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.6);
+      position: fixed;
+      inset: 0;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 3.5em;
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: slideDown 1s ease;
+    }
+    p {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.2em;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 0.8s;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      min-height: 220px; /* keeps all cards aligned */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+    a {
+      color: #ff6a00;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes slideDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>{{ user.name }}</h1>
+    <p>{{ user.bio }}</p>
+
+    <div class="grid">
+      {% if user.skills %}
+      <div class="card">
+        <h3>Skills</h3>
+        <ul>
+          {% for skill in user.skills %}
+          <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if user.projects %}
+      <div class="card">
+        <h3>Projects</h3>
+        <ul>
+          {% for project in user.projects %}
+          <li><b>{{ project.title }}</b> - {{ project.description }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      
+      {% if user.certifications %}
+      <div class="card">
+        <h3>Certifications</h3>
+        <ul>
+          {% for cert in user.certifications %}
+          <li>{{ cert }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <footer>
+      <p>© {{ user.name }} | <a href="{{ user.github }}">GitHub</a> | <a href="{{ user.linkedin }}">LinkedIn</a></p>
+    </footer>
+  </div>
+</body>
+</html>

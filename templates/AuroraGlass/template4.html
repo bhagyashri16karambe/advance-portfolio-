@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>{{user.name}} — Orbit</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1724;--panel:#0b1220;--accent:#7ce7c7;--muted:#b9c6d9}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#051426,#071233);color:#dfe8f7;font-family:Inter,system-ui,Arial;overflow-x:hidden}
+
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;align-items:center}
+.left{display:flex;align-items:center;justify-content:center;padding:40px;perspective:900px;}
+.orbit-wrap{width:320px;height:320px;display:grid;place-items:center;}
+.orbit{
+  width:280px;height:280px;border-radius:18px;background:linear-gradient(135deg,#0f1730,#11213a);
+  box-shadow:0 18px 50px rgba(0,0,0,0.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform-style:preserve-3d;animation:float 6s ease-in-out infinite;
+  transition:transform .25s ease, background 0.5s ease;
+}
+@keyframes float{
+  0%{transform:translateY(0) rotateY(0)}
+  25%{transform:translateY(-10px) rotateY(10deg)}
+  50%{transform:translateY(-14px) rotateY(0deg)}
+  75%{transform:translateY(-10px) rotateY(-10deg)}
+  100%{transform:translateY(0) rotateY(0)}
+}
+
+.orbit h2{
+  font-size:1.2rem;font-weight:700;color:#7ce7c7;margin:0;
+  animation:glow 2s ease-in-out infinite alternate;
+}
+.orbit small{display:block;color:var(--muted);margin-top:6px;letter-spacing:0.5px;}
+
+@keyframes glow{
+  from{color:#7ce7c7;text-shadow:0 0 8px #7ce7c7,0 0 20px #6fd5ff;}
+  to{color:#6fd5ff;text-shadow:0 0 12px #6fd5ff,0 0 28px #b18bff;}
+}
+
+.right{padding:48px 40px}
+.card{background:var(--panel);padding:22px;border-radius:14px;box-shadow:0 10px 30px rgba(5,10,20,0.6);transition:transform 0.3s ease, box-shadow 0.3s ease}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.35);}
+
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tab{padding:8px 12px;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;border:1px solid transparent;transition:all .18s}
+.tab.active{background:linear-gradient(90deg,#0f1a2a,#13283b);color:var(--accent);border:1px solid rgba(124,231,199,0.12)}
+
+.content{min-height:170px;opacity:0;transform:translateY(12px);transition:all .28s}
+.content.show{opacity:1;transform:translateY(0)}
+
+.project-row{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:12px}
+.pill{background:#0b1622;padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600;transition:all 0.3s ease;}
+.pill:hover{background:linear-gradient(90deg,#7ce7c7,#6fd5ff);color:#000;transform:scale(1.05);}
+
+.footer-small{margin-top:18px;color:#6b7c93;font-size:0.9rem}
+
+/* responsive */
+@media (max-width:900px){.split{grid-template-columns:1fr;padding:30px}.left{order:2}}
+</style>
+</head>
+<body>
+  <div class="split">
+    <div class="left">
+      <div class="orbit-wrap">
+        <div class="orbit" id="orbit">
+          <h2>{{user.name}}</h2>
+          <small>{{user.bio}}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:1.1rem;font-weight:700">{{user.name}}</div>
+            <div style="color:var(--muted);margin-top:4px">{{user.about_me}}</div>
+          </div>
+          <div>
+            <div class="pill">Open for work</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px" class="tabs">
+          <div class="tab active" data-tab="projects">Projects</div>
+          <div class="tab" data-tab="skills">Skills</div>
+          <div class="tab" data-tab="certs">Certifications</div>
+          <div class="tab" data-tab="education">Education</div>
+        </div>
+
+        <div id="projects" class="content show">
+          {% if user.projects %}
+            {% for project in user.projects %}
+            <div class="project-row">
+              <div>
+                <div style="font-weight:700">{{ project.title }}</div>
+                <div style="font-size:0.9rem;color:var(--muted)">{{ project.description }}</div>
+              </div>
+              {% if project.link %}
+              <a href="{{ project.link }}" class="pill">View</a>
+              {% endif %}
+            </div>
+            {% endfor %}
+          {% else %}
+            <p style="color:var(--muted); text-align: center;">No projects added yet.</p>
+          {% endif %}
+        </div>
+
+        <div id="skills" class="content">
+          {% if user.skills %}
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              {% for skill in user.skills %}
+              <div class="pill">{{ skill }}</div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p style="color:var(--muted); text-align: center;">No skills added yet.</p>
+          {% endif %}
+        </div>
+
+        <div id="certs" class="content">
+          {% if user.certifications %}
+            {% for cert in user.certifications %}
+            <div style="font-weight:700">{{ cert }}</div>
+            {% endfor %}
+          {% else %}
+            <p style="color:var(--muted); text-align: center;">No certifications added yet.</p>
+          {% endif %}
+        </div>
+        
+        <div id="education" class="content">
+          {% if user.education %}
+            {% for edu in user.education %}
+            <div style="font-weight:700">{{ edu.degree }}</div>
+            <div style="margin-top:8px;color:var(--muted)">{{ edu.institution }} ({{ edu.year }})</div>
+            {% endfor %}
+          {% else %}
+            <p style="color:var(--muted); text-align: center;">No education added yet.</p>
+          {% endif %}
+        </div>
+
+        <div class="footer-small">
+          {% if user.email %}
+          Email: <a href="mailto:{{ user.email }}" style="color:var(--accent)">{{ user.email }}</a>
+          {% endif %}
+          {% if user.phone %}
+          • Phone: {{ user.phone }}
+          {% endif %}
+          {% if user.github %}
+          • GitHub: <a href="{{ user.github }}" style="color:var(--accent)">{{ user.github }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+// tabs
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick = ()=> {
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const target = t.getAttribute('data-tab');
+    document.querySelectorAll('.content').forEach(c=>{
+      if(c.id===target){ c.classList.add('show') } else { c.classList.remove('show') }
+    });
+  };
+});
+
+// 3D float orbit animation with mouse move
+const orbit = document.getElementById('orbit');
+if(orbit){
+  orbit.addEventListener('mousemove', e=>{
+    const r = orbit.getBoundingClientRect();
+    const rx = -(e.clientY - r.top - r.height/2)/15;
+    const ry = (e.clientX - r.left - r.width/2)/15;
+    orbit.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  });
+  orbit.addEventListener('mouseleave', ()=> orbit.style.transform='rotateX(0) rotateY(0)');
+}
+</script>
+</body>
+</html>

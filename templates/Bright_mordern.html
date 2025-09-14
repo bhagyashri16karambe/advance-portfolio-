@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ user.name }} - Premium Theme 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --primary:#6C63FF;
+  --secondary:#F6C90E;
+  --bg:#FAFAFA;
+  --text:#333;
+  --card-bg:#FFFFFF;
+  --shadow:rgba(0,0,0,0.08);
+  --nav-bg:#ffffffdd;
+}
+
+/* General */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+body{background:var(--bg);color:var(--text);scroll-behavior:smooth;}
+
+/* Navbar */
+nav{position:fixed;top:0;width:100%;background:var(--nav-bg);backdrop-filter:blur(10px);
+box-shadow:0 2px 15px rgba(0,0,0,0.05);display:flex;justify-content:center;z-index:1000;transition:0.3s;}
+nav:hover{box-shadow:0 4px 20px var(--shadow);}
+nav .container{max-width:1100px;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;}
+nav h1{font-weight:700;font-size:1.5em;color:var(--primary);}
+nav ul{list-style:none;display:flex;gap:25px;}
+nav ul a{text-decoration:none;color:var(--text);font-weight:600;transition:0.2s;}
+nav ul a:hover{color:var(--primary);transform:scale(1.05);}
+.menu-toggle{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.menu-toggle span{width:25px;height:3px;background:var(--text);transition:0.3s;}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px, 5px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px, -5px);}
+@media(max-width:768px){nav ul{flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--nav-bg);height:0;overflow:hidden;transition:height 0.3s ease;box-shadow:0 5px 15px var(--shadow);}
+nav ul.active{height:calc(100vh - 70px);}
+nav ul a{padding:15px;text-align:center;width:100%;}
+.menu-toggle{display:flex;}}
+
+/* Hero Section */
+.hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;}
+.hero-content{z-index:1;max-width:800px;padding:20px;opacity:0;transform:translateY(20px);animation:fadeInUp 1s forwards;animation-delay:0.5s; display: flex; flex-direction: column; align-items: center;}
+.hero-content h1{font-size:3.5em;color:var(--primary);margin-bottom:10px;text-shadow:2px 2px 8px rgba(0,0,0,0.1);}
+.hero-content p{font-size:1.2em;color:var(--text);line-height:1.5;}
+.profile-image{width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid var(--primary); box-shadow: 0 0 15px rgba(108, 99, 255, 0.5); margin-bottom: 20px;}
+.social-icons{margin-top:20px;}
+.social-icons a{color:var(--primary);font-size:2em;margin:0 10px;transition:0.3s;}
+.social-icons a:hover{color:var(--secondary);transform:scale(1.1);}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+
+/* Floating geometric shapes */
+.shape{position:absolute;background:rgba(108,99,255,0.1);border-radius:50%;animation:float 15s infinite ease-in-out;}
+.shape:nth-child(1){width:150px;height:150px;top:10%;left:20%;animation-duration:12s;}
+.shape:nth-child(2){width:100px;height:100px;top:50%;right:15%;animation-duration:18s;}
+.shape:nth-child(3){width:200px;height:200px;bottom:10%;left:50%;animation-duration:15s;}
+.shape:nth-child(4){width:80px;height:80px;top:30%;left:5%;animation-duration:10s;}
+.shape:nth-child(5){width:120px;height:120px;bottom:20%;right:30%;animation-duration:14s;}
+@keyframes float{0%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-20px) rotate(180deg);}100%{transform:translateY(0) rotate(360deg);}}
+
+/* General Sections */
+.container{max-width:1100px;margin:0 auto;padding:80px 20px;}
+.section h2{font-size:2.5em;color:var(--primary);text-align:center;margin-bottom:50px;position:relative;}
+.section h2::after{content:'';width:80px;height:4px;background:var(--secondary);position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);border-radius:2px;}
+.section-content{display:flex;justify-content:center;align-items:center;flex-direction:column;}
+.card-container{width:100%;max-width:700px;padding:20px 0;transition:opacity 0.8s,transform 0.8s;opacity:0;}
+.card-container.visible{opacity:1;}
+.card-container.left{transform:translateX(-50px);}
+.card-container.right{transform:translateX(50px);}
+.card-container.visible.left{transform:translateX(0);}
+.card-container.visible.right{transform:translateX(0);}
+.card{background:var(--card-bg);border-radius:15px;box-shadow:0 5px 20px var(--shadow);padding:30px;transition:0.3s;}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 25px var(--shadow);}
+.card h3{color:var(--primary);margin-bottom:10px;font-size:1.5em;}
+.card p{color:var(--text);margin-bottom:15px;}
+.card .tags span{background:var(--primary);color:#fff;padding:5px 10px;border-radius:20px;font-size:0.8em;margin-right:5px;}
+
+/* Projects */
+.project-card{display:flex;flex-direction:column;}
+.project-card img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px;}
+.project-card a{display:inline-block;margin-top:10px;padding:10px 15px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;transition:0.3s;}
+.project-card a:hover{background:var(--secondary);color:var(--text);}
+.project-card .description{color:var(--text);}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+.skill-bar{height:10px;background:#eee;border-radius:5px;overflow:hidden;margin-top:10px;}
+.skill-bar span{display:block;height:100%;background:var(--primary);transition:width 1.2s ease-in-out;}
+.skill-card{padding:20px;display:flex;flex-direction:column;justify-content:center;}
+
+/* Resume Button */
+.resume-btn{
+  display:block;
+  margin:40px auto 0 auto;
+  padding:15px 30px;
+  background:var(--primary);
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:600;
+  letter-spacing:1px;
+  transition:all 0.3s ease;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+.resume-btn:hover{
+  background:var(--secondary);
+  color:var(--text);
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Footer */
+footer{text-align:center;padding:20px;color:var(--text);font-size:0.9em;}
+footer a{color:var(--primary);text-decoration:none;}
+
+</style>
+</head>
+<body>
+
+<main>
+  <nav>
+    <div class="container">
+      <h1><a href="#">{{ user.name }}</a></h1>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+      </ul>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  
+  <section class="hero" id="home">
+    <div class="shape"></div><div class="shape"></div><div class="shape"></div><div class="shape"></div><div class="shape"></div>
+    <div class="hero-content">
+      {% if user.profile_img %}
+      <img src="{{ user.profile_img }}" alt="{{ user.name }}'s Profile Photo" class="profile-image">
+      {% endif %}
+      <h1>Hello, I'm {{ user.name }}</h1>
+      <p>I am a {{ user.title }}</p>
+      {% if user.linkedin or user.github or user.email %}
+      <div class="social-icons">
+        {% if user.linkedin %}<a href="{{ user.linkedin }}" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+        {% if user.github %}<a href="{{ user.github }}" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>{% endif %}
+        {% if user.email %}<a href="mailto:{{ user.email }}" aria-label="Email"><i class="fas fa-envelope"></i></a>{% endif %}
+      </div>
+      {% endif %}
+      {% if user.resume_download_link %}
+      <a href="{{ user.resume_download_link }}" download="{{ user.resume_filename }}" class="resume-btn">Download Resume</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="container section" id="about">
+    <h2>About Me</h2>
+    <div class="card-container left">
+      <div class="card">
+        <p>{{ user.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  {% if user.skills %}
+  <section class="container section" id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      {% for skill in user.skills %}
+      <div class="card skill-card card-container right">
+        <h3>{{ skill.name }}</h3>
+        <div class="skill-bar">
+          <span style="width:{{ skill.level }}%;"></span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if user.projects %}
+  <section class="container section" id="projects">
+    <h2>Projects</h2>
+    {% for project in user.projects %}
+    <div class="card-container {% if loop.index % 2 == 0 %}right{% else %}left{% endif %}">
+      <div class="card project-card">
+        <img src="{{ project.image_url | default('https://picsum.photos/400/250?' + loop.index|string) }}" alt="{{ project.title }}">
+        <h3>{{ project.title }}</h3>
+        <p class="description">{{ project.description }}</p>
+        <a href="{{ project.link }}" target="_blank">View Project</a>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if user.education %}
+  <section class="container section" id="education">
+    <h2>Education</h2>
+    {% for edu in user.education %}
+    <div class="card-container {% if loop.index % 2 == 0 %}right{% else %}left{% endif %}">
+      <div class="card">
+        <h3>{{ edu.degree }}</h3>
+        <p>{{ edu.institution }}</p>
+        <p>{{ edu.year }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if user.certifications %}
+  <section class="container section" id="certifications">
+    <h2>Certifications</h2>
+    {% for cert in user.certifications %}
+    <div class="card-container {% if loop.index % 2 == 0 %}right{% else %}left{% endif %}">
+      <div class="card">
+        <h3>{{ cert }}</h3>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+</main>
+
+<footer>
+  <p>&copy; 2024 {{ user.name }}. All rights reserved. | Built with ❤️</p>
+</footer>
+
+<script>
+// Fade-in and slide animations
+const cards = document.querySelectorAll('.card-container');
+function revealScroll(){
+  cards.forEach(card=>{
+    const top=card.getBoundingClientRect().top;
+    if(top<window.innerHeight*0.85) card.classList.add('visible');
+  });
+}
+window.addEventListener('scroll',revealScroll);
+window.addEventListener('load',revealScroll);
+
+// Navbar toggle for mobile
+const menuToggle = document.querySelector('.menu-toggle');
+const navUl = document.querySelector('nav ul');
+menuToggle.addEventListener('click', () => {
+  navUl.classList.toggle('active');
+  menuToggle.classList.toggle('active');
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }} - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00bcd4;
+            --secondary-color: #e91e63;
+            --bg-dark: #1a1a1a;
+            --bg-light: #2c2c2c;
+            --text-color: #f0f0f0;
+            --border-color: #444;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section with Typing Animation */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-dark), #000);
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid var(--primary-color);
+            animation: blink-caret 0.75s step-end infinite;
+            padding-right: 5px;
+        }
+
+        .hero-section p {
+            font-size: 1.5em;
+            margin: 10px 0 0;
+            color: var(--text-color);
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Project Cards with Hover Background */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+        }
+
+        .project-content a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .project-content a:hover {
+            background-color: #00acc1;
+        }
+
+        /* General Card Styling (for skills, education) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <h1></h1>
+        <p>{{ user.bio }}</p>
+    </section>
+    
+    <div class="container">
+        <section class="section" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="card">
+                <p>{{ user.about_me }}</p>
+            </div>
+        </section>
+
+        {% if user.skills %}
+        <section class="section" id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="card-grid">
+                {% for skill in user.skills %}
+                <div class="card">
+                    <h3>{{ skill }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if user.projects %}
+        <section class="section" id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="project-grid">
+                {% for project in user.projects %}
+                <div class="project-card" style="--bg-image: url('{{ project.image_url | default('https://picsum.photos/800/600?' + loop.index|string) }}');">
+                    <div class="project-content">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        <a href="{{ project.link }}" target="_blank">View Project</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if user.education %}
+        <section class="section" id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="card-grid">
+                {% for edu in user.education %}
+                <div class="card">
+                    <h3>{{ edu.degree }}</h3>
+                    <p>{{ edu.institution }}</p>
+                    <p>{{ edu.year }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+
+    <script>
+        const name = "{{ user.name }}";
+        const typingElement = document.querySelector('.hero-section h1');
+        const sections = document.querySelectorAll('.section');
+
+        function typeWriter() {
+            let i = 0;
+            function type() {
+                if (i < name.length) {
+                    typingElement.textContent += name.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                }
+            }
+            type();
+        }
+
+        function checkFadeIn() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('fade-in');
+                }
+            });
+        }
+
+        // Set the background images for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            const imageUrl = card.style.getPropertyValue('--bg-image').replace(/['"]/g, '');
+            card.style.setProperty('--bg-image', imageUrl);
+        });
+
+        window.addEventListener('scroll', checkFadeIn);
+        window.addEventListener('load', checkFadeIn);
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jane Doe - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e293b;
+      --bg: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* Navbar */
+    header { background: var(--bg); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    nav { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 18px 5%; }
+    nav h1 { font-weight: 700; font-size: 1.6rem; color: var(--primary); }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul li a { text-decoration: none; color: var(--secondary); font-weight: 600; transition: color 0.3s ease; }
+    nav ul li a:hover { color: var(--primary); }
+
+    main { max-width: 1100px; margin: 120px auto 60px; padding: 0 5%; }
+
+    section { margin-bottom: 80px; opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 24px; color: var(--secondary); border-left: 5px solid var(--primary); padding-left: 12px; }
+
+    /* Hero */
+    .hero { text-align: center; margin-bottom: 100px; }
+    .hero img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); margin-bottom: 20px; }
+    .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 10px; color: var(--secondary); }
+    .hero p { font-size: 1.2rem; color: var(--muted); }
+
+    /* Card */
+    .card { background: #f9fafb; padding: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; }
+    .card h3 { margin-bottom: 12px; font-size: 1.3rem; font-weight: 600; color: var(--primary); }
+
+    /* Skills */
+    .skills-badges { display: flex; flex-wrap: wrap; gap: 14px; }
+    .skill-badge { background: var(--primary); color: #fff; padding: 10px 20px; border-radius: 25px; font-weight: 500; font-size: 0.95rem; }
+
+    /* Projects */
+    .project-card img { width: 100%; border-radius: 12px; margin-bottom: 12px; }
+    .project-card a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+    /* Contact */
+    #contact { text-align: center; }
+    .contact-icons { margin-top: 20px; display: flex; justify-content: center; gap: 30px; }
+    .contact-icons a { color: var(--primary); font-size: 28px; transition: transform 0.3s ease; }
+    .contact-icons a:hover { transform: scale(1.2); }
+
+    @media(max-width: 768px) {
+      nav ul { display: none; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <h1>Jane Doe</h1>
+    <ul>
+      <li><a href="#about-me">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    
+    <h1>Jane Doe</h1>
+    <p>A passionate and creative developer.</p>
+  </section>
+
+  <section id="about-me">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>I am a skilled developer with experience in creating dynamic and user-friendly web applications. I am passionate about clean code, robust design, and continuous learning.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="card">
+      <div class="skills-badges">
+        
+        <span class="skill-badge">java</span>
+        
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    
+    <div class="card project-card">
+      <img src="" alt="heloo" />
+      <h3>heloo</h3>
+      <p>dsagd</p>
+      <a href="" target="_blank">View Project</a>
+    </div>
+    
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    
+    <div class="card">
+      <h3>mba</h3>
+      <p>mca</p>
+      <p></p>
+    </div>
+    
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    
+    <div class="card">
+      <p>gen ai</p>
+    </div>
+    
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-icons">
+      
+      <a href="https://linkedin.com/in/janedoe" target="_blank" title="LinkedIn">🔗</a>
+      
+      
+      <a href="https://github.com/janedoe" target="_blank" title="GitHub">💻</a>
+      
+      
+      <a href="mailto:jane.doe@example.com" title="Email">✉️</a>
+      
+    </div>
+  </section>
+</main>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const revealOnScroll = () => {
+    const trigger = window.innerHeight * 0.85;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top < trigger) sec.classList.add('visible');
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>

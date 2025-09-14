@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ user.name }} - Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: #f9f9f9;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('https://picsum.photos/1600/900?blur=2') no-repeat center/cover;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 2;
+      margin: 10px 0;
+      animation: fadeInUp 1.5s ease;
+    }
+    header h1 {
+      font-size: 4em;
+      background: linear-gradient(90deg,#ff512f,#dd2476);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    section {
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1.5s ease;
+    }
+    section h2 {
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      color: #dd2476;
+      position: relative;
+      display: inline-block;
+    }
+    section h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: #ff512f;
+      border-radius: 2px;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      width: 280px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9em;
+    }
+    footer a {
+      color: #ff512f;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(50px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>{{ user.name }}</h1>
+    <p>{{ user.bio }}</p>
+    <p>
+      {% if user.email %}
+      <a href="mailto:{{ user.email }}" style="color:#fff">{{ user.email }}</a>
+      {% endif %}
+      {% if user.phone %}
+      | {{ user.phone }}
+      {% endif %}
+    </p>
+    <p>
+      {% if user.github %}
+      <a href="{{ user.github }}" style="color:#ff9">GitHub</a>
+      {% endif %}
+      {% if user.linkedin %}
+      | <a href="{{ user.linkedin }}" style="color:#ff9">LinkedIn</a>
+      {% endif %}
+    </p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>{{ user.about_me }}</p>
+  </section>
+
+  {% if user.skills %}
+  <section>
+    <h2>Skills</h2>
+    <div class="cards">
+      {% for skill in user.skills %}
+      <div class="card">⚡ {{ skill }}</div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if user.projects %}
+  <section>
+    <h2>Projects</h2>
+    <div class="cards">
+      {% for project in user.projects %}
+      <div class="card">
+        <b>{{ project.title }}</b><br>{{ project.description }}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if user.certifications %}
+  <section>
+    <h2>Certifications</h2>
+    <div class="cards">
+      {% for cert in user.certifications %}
+      <div class="card">🏅 {{ cert }}</div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+  
+  {% if user.education %}
+  <section>
+    <h2>Education</h2>
+    <div class="cards">
+      {% for edu in user.education %}
+      <div class="card">
+        <b>{{ edu.degree }}</b><br>{{ edu.institution }} ({{ edu.year }})
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <footer>
+    <p>© {{ user.name }} | Creative Portfolio</p>
+  </footer>
+</body>
+</html>
